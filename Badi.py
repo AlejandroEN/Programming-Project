@@ -15,25 +15,29 @@ def display_board(board: list):
     for row in board:
         print(' '.join(row))
 
-def initialize_game(difficulty:int, number_of_players:int, board:list):
-    """Begins sequence for the game after selecting difficulty, number of players, and instance.
+def set_board_difficulty(difficulty: int):
+    """Makes board modification after selecting difficulty, number of players, and instance.
         For difficulty: 0 = Easy, 1 = Normal, 2 = Hard."""
     if difficulty == 0:
-        return generate_board(4, 4)
+        board = generate_board(4, 4)
+        return board
     elif difficulty == 1:
-        return generate_board(8, 4)
+        board = generate_board(8, 4)
+        return board
     elif difficulty == 2:
-        return generate_board(13, 4)
+        board = generate_board(13, 4)
+        return board
     else:
         return print('Invalid difficult selected.')
 
+def set_cards_difficulty(difficulty: int, board: list):
+    return 1
 
 B = generate_board(3, 2)
 display_board(B)
 
-status = (initialize_game(2, 0, 0))
+set_board_difficulty(2, B)
 
-B = status
 display_board(B)
 
 
