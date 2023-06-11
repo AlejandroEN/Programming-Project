@@ -1,3 +1,5 @@
+import card
+
 board_difficulty: int = 0
 
 def generate_board(x: int, y: int):
@@ -22,10 +24,14 @@ def set_difficulty(difficulty: int):
         For difficulty: 0 = Easy, 1 = Normal, 2 = Hard."""
 
     match difficulty:
-        case 0: return generate_board(4, 4)
+        case 0:
+            return generate_board(4, 4)
         case 1: return generate_board(8, 4)
         case 2: return generate_board(13, 4)
         case _: print("Invalid difficult selected.")  # Use throw
 
-def fill_board():
-    return 0
+    def fill_board():
+        card.get_cards()
+#     return 0
+
+

@@ -1,17 +1,19 @@
-from pydealer import Deck
+from pydealer import Deck, const
+from random import shuffle
 
-symbols = {"Diamonds": ["♦", "♢"], "Clubs": ["♣", "♧"], "Hearts": ["♥", "♡"], "Spades": ["♠", "♤"]}
-
+SYMBOLS = {"Diamonds": ["♦", "♢"], "Clubs": ["♣", "♧"], "Hearts": ["♥", "♡"], "Spades": ["♠", "♤"]}
+SHORT_VALUE = {"Jack": "J", "Queen": "Q", "King": "K", "Ace": "1"}
 
 def get_cards(number_of_different_cards: int):
-    deck: Deck = Deck()
+    deck = Deck()
     deck.shuffle()
     hand = deck.deal(number_of_different_cards)
     list_of_cards = []
 
     for card in hand:
-        new_card = f"{card.value} {symbols[card.suit][0]}"
-        print(new_card)
+        new_card_value = f"{SHORT_VALUE[card.value] if card.value in const.VALUES[9:] else card.value}"
+        new_card_suit = SYMBOLS[card.suit]
+        list_of_cards.append(f"{new_card_value} {new_card_suit[0]}")
+        list_of_cards.append(f"{new_card_value} {new_card_suit[1]}")
 
-
-get_cards(20)
+    return shuffle(list_of_cards)
