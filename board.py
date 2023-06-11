@@ -35,13 +35,3 @@ def fill_board(board: list):
         Does not include card 'values' (values = symbolic and numerical cards)."""
     for i in range(1, len(board)):
         board[i] = f"[{i}]"
-
-board = generate_board(8, 4)
-display_board(board)
-print("- - - - - - - -")
-fill_board(board)
-display_board(board)
-
-
-
-

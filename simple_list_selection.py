@@ -4,7 +4,7 @@ def ask(title: str, options: list[str]):
     print()
 
     while True:
-        answer = int(input())
+        answer = int(input("Ingrese la opción deseada: "))
         print()
 
         if 1 <= answer <= len(options) + 1: break
