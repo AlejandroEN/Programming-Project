@@ -30,8 +30,18 @@ def set_difficulty(difficulty: int):
         case 2: return generate_board(13, 4)
         case _: print("Invalid difficult selected.")  # Use throw
 
-    def fill_board():
-        card.get_cards()
-#     return 0
+def fill_board(board: list):
+    """Assigns respective keys to each individual element on board list.
+        Does not include card 'values' (values = symbolic and numerical cards)."""
+    for i in range(1, len(board)):
+        board[i] = f"[{i}]"
+
+board = generate_board(8, 4)
+display_board(board)
+print("- - - - - - - -")
+fill_board(board)
+display_board(board)
+
+
 
 
