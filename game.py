@@ -1,22 +1,21 @@
-import json
-from rich.prompt import Prompt
-import board
+from simple_list_selection import ask
+from getpass import getpass
+from user import create_new_user
 
-def get_welcome():
-    return "This is a welcome"
+def show_welcome():
+    welcome = "This is a welcome"
+    print(f"{welcome}\n")
 
-def get_first_menu():
-    first_menu_items = ["1. Registrar jugador", "2. Establecer nuevo jugador", "3. Iniciar juego de memoria", "4. Salir"]
+def show_first_menu():
+    first_menu_items = ["Registrar jugador", "Establecer nuevo jugador", "Iniciar juego de memoria", "Salir"]
 
-    choice = Prompt.ask("Seleccione una de las siguientes opciones:", choices=first_menu_items)
+    choice = ask("Seleccione una de las siguientes opciones:", first_menu_items)
 
+    match choice:
+        case 0: show_create_new_user()
 
-def write_to_json(self, username: str, password: str):
-    new_player = {"username": username, "password": password}
-    json_object = json.dumps(new_player, indent=4)
-
-    with open(f"Data/{username}.json", "w") as storage:
-        storage.write(json_object)
-
-
-get_first_menu()
+def show_create_new_user():
+    username = input("Usuario: ")
+    password = getpass("Contraseña: ")
+    create_new_user(username, password)
+    show_first_menu()
