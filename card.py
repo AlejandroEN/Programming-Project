@@ -17,8 +17,9 @@ def get_cards(number_of_different_cards: int):
         list_of_cards.append(f"{new_card_value} {new_card_suit[0]}")
         list_of_cards.append(f"{new_card_value} {new_card_suit[1]}")
 
-    print(shuffle(list_of_cards))
-    return shuffle(list_of_cards)
+    shuffle(list_of_cards)
+
+    return list_of_cards
 
 def get_players_order(players):
     playing_order = []
@@ -30,7 +31,7 @@ def get_players_order(players):
         hand = deck.deal(1)
         players_card_dictionary[i] = hand[0]
 
-    sorted_players = sorted(player_cards.items(), key=lambda x: x[1].value, reverse=True)
+    sorted_players = sorted(players_card_dictionary.items(), key=lambda x: x[1].value, reverse=True)
 
     for player, card in sorted_players:
         print(f"{player}: {card}")

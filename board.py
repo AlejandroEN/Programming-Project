@@ -38,3 +38,9 @@ def fill_board(board: list):
     for i in range(len(board)):
         board[i] = f"[{card_pair[u]}] [{card_pair[u+1]}] [{card_pair[u+2]}] [{card_pair[u+3]}]"
         u += 4
+
+board = generate_board(8, 4)
+display_board(board)
+print("- - - - - - - -")
+fill_board(board)
+display_board(board)
