@@ -6,11 +6,11 @@ def generate_board(x: int, y: int):
     """Generates a board of dimensions "x" x "y", display in strings for simple assimilation.
     'x' represents amount of columns, and 'y' represents amount of rows"""
 
-    board: list[str] = []
+    board: list[list] = []
     total_numbers: int = x * y
     visual_board: str = ''
 
-    for i in range(0, y): board.append(f'[ ]' * x)
+    for i in range(0, y): board.append(['[]'] * x)
 
     return board
 
@@ -33,14 +33,25 @@ def set_difficulty(difficulty: int):
 def fill_board(board: list):
     """Assigns respective keys to each individual element on board list.
         Does not include card 'values' (values = symbolic and numerical cards)."""
-    u = 0
+    step = 0
     card_pair = card.get_cards(8)
-    for i in range(len(board)):
-        board[i] = f"[{card_pair[u]}] [{card_pair[u+1]}] [{card_pair[u+2]}] [{card_pair[u+3]}]"
-        u += 4
+    for row in board:
+        for column in range(0, len(row)):
+            row[column] = f"[{card_pair[step]}]"
+            step += 1
+    step +=4
 
-board = generate_board(8, 4)
+
+board = generate_board(4, 4)
 display_board(board)
+print(board[1])
+print(board[2][1])
+print(board[0])
+print(board[3])
 print("- - - - - - - -")
 fill_board(board)
 display_board(board)
+print(board[1])
+print(board[2][1])
+print(board[0])
+print(board[3])
