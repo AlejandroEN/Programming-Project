@@ -5,8 +5,7 @@ SYMBOLS = {"Diamonds": ["♦", "♢"], "Clubs": ["♣", "♧"], "Hearts": ["♥"
 SHORT_VALUE = {"Jack": "J", "Queen": "Q", "King": "K", "Ace": "1"}
 
 def get_cards(number_of_different_cards: int):
-    deck = Deck()
-    deck.shuffle()
+    deck = Deck().shuffle()
     hand = deck.deal(number_of_different_cards)
     list_of_cards = []
 
@@ -17,3 +16,11 @@ def get_cards(number_of_different_cards: int):
         list_of_cards.append(f"{new_card_value} {new_card_suit[1]}")
 
     return shuffle(list_of_cards)
+
+def get_players_order(players):
+    playing_order = []
+    player
+
+    for i in players:
+        deck = Deck().shuffle()
+        card = deck.deal(1)
