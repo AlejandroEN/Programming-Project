@@ -33,5 +33,8 @@ def set_difficulty(difficulty: int):
 def fill_board(board: list):
     """Assigns respective keys to each individual element on board list.
         Does not include card 'values' (values = symbolic and numerical cards)."""
-    for i in range(1, len(board)):
-        board[i] = f"[{i}]"
+    u = 0
+    card_pair = card.get_cards(8)
+    for i in range(len(board)):
+        board[i] = f"[{card_pair[u]}] [{card_pair[u+1]}] [{card_pair[u+2]}] [{card_pair[u+3]}]"
+        u += 4
