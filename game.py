@@ -31,7 +31,8 @@ def show_set_difficulty():
     set_difficulty(choice)
 
 def set_players_order():
-    number_of_players = int(input("Ingreses la cantidad de jugadores: "))
+    number_of_players = 0
+    while number_of_players > 4 or number_of_players < 2: number_of_players = int(input("Ingreses la cantidad de jugadores (2 a 4): "))
     print()
 
     for i in range(number_of_players):
