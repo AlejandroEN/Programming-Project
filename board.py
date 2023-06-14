@@ -30,11 +30,18 @@ def set_difficulty(difficulty: int):
         case 2: return generate_board(13, 4)
         case _: print("Invalid difficult selected.")  # Use throw
 
-def fill_board(board: list):
+def fill_board(board: list, difficulty: int):
     """Assigns respective keys to each individual element on board list.
         Does not include card 'values' (values = symbolic and numerical cards)."""
     step = 0
-    card_pair = card.get_cards(8)
+
+    match difficulty:
+        case 0: n = 8
+        case 1: n = 16
+        case 2: n = 26
+        case _: print('System error.')
+
+    card_pair = card.get_cards(n)
     for row in board:
         for column in range(0, len(row)):
             row[column] = f"[{card_pair[step]}]"
@@ -42,16 +49,12 @@ def fill_board(board: list):
     step +=4
 
 
-board = generate_board(4, 4)
+board = generate_board(4, 8)
 display_board(board)
 print(board[1])
 print(board[2][1])
 print(board[0])
 print(board[3])
 print("- - - - - - - -")
-fill_board(board)
+fill_board(board, 1)
 display_board(board)
-print(board[1])
-print(board[2][1])
-print(board[0])
-print(board[3])
