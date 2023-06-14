@@ -42,19 +42,10 @@ def fill_board(board: list, difficulty: int):
         case _: print('System error.')
 
     card_pair = card.get_cards(n)
+
     for row in board:
         for column in range(0, len(row)):
             row[column] = f"[{card_pair[step]}]"
             step += 1
-    step +=4
 
-
-board = generate_board(4, 8)
-display_board(board)
-print(board[1])
-print(board[2][1])
-print(board[0])
-print(board[3])
-print("- - - - - - - -")
-fill_board(board, 1)
-display_board(board)
+    step += 4
