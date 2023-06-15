@@ -13,12 +13,15 @@ def show_first_menu():
     choice = ask("Seleccione una de las siguientes opciones:", menu_items)
 
     match choice:
-        case 0: show_create_new_user()
+        case 0:
+            show_create_new_user()
         case 1:
             show_set_difficulty()
             show_players_order()
-        case 2: run_memory_game()
-        case 4: return
+        case 2:
+            run_memory_game()
+        case 4:
+            return
 
 def show_create_new_user():
     username = input("Usuario: ")

@@ -6,9 +6,8 @@ SHORT_VALUE = {"Jack": "J", "Queen": "Q", "King": "K", "Ace": "1"}
 
 def get_cards(number_of_different_cards: int):
     """Generates a list, containing a disorganized group of pairs of cards."""
-    deck = Deck()
-    deck.shuffle()
-    hand = deck.deal(number_of_different_cards)
+
+    hand = get_hand(number_of_different_cards)
     list_of_cards = []
 
     for card in hand:
@@ -24,16 +23,19 @@ def get_cards(number_of_different_cards: int):
 def get_players_order(players):
     playing_order = []
     players_card_dictionary = {}
-
-    for i in players:
-        deck = Deck()
-        deck.shuffle()
-        hand = deck.deal(1)
-        players_card_dictionary[i] = hand[0]
-
+    hand = get_hand(2)
+    for i in players: players_card_dictionary[i] = hand[i]
     sorted_players = sorted(players_card_dictionary.items(), key=lambda x: x[1].value, reverse=True)
 
     for player, card in sorted_players:
         print(f"{player}: {card}")
 
-get_players_order(["1", "2"])
+
+def get_hand(number_of_different_cards):
+    deck = Deck()
+    deck.shuffle()
+
+    return deck.deal(number_of_different_cards)
+
+
+get_players_order(["Alejandro", "María"])
