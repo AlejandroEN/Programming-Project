@@ -2,7 +2,7 @@ from simple_list_selection import ask
 from getpass import getpass
 from user import create_new_user, check_user
 from board import set_difficulty
-from player import get_players_order
+from player import get_players_order, players_order
 from card import get_reformatted_card
 from random import randint
 
@@ -72,7 +72,11 @@ def show_players_order():
 
 
 def run_memory_game():
+    if not players_order:
+        print("No se ha establecido el orden de los jugadores.")
+        print("Por favor, seleccione la opción 2 y establezca el orden de los jugadores antes de iniciar el juego.\n")
+        show_first_menu()
     return
 
 
-show_players_order()
+show_first_menu()
