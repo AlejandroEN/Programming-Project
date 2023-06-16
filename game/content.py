@@ -2,7 +2,9 @@ from simple_list_selection import ask
 from getpass import getpass
 from user import create_new_user, check_user
 from board import set_difficulty
-from card import get_players_order
+from player import get_players_order
+from card import get_reformatted_card
+from random import randint
 
 def show_welcome():
     welcome = "This is a welcome"
@@ -36,7 +38,10 @@ def show_set_difficulty():
 
 def show_players_order():
     number_of_players = 0
-    while number_of_players > 4 or number_of_players < 2: number_of_players = int(input("Ingreses la cantidad de jugadores (2 a 4): "))
+
+    while number_of_players > 4 or number_of_players < 2:
+        number_of_players = int(input("Ingreses la cantidad de jugadores (2 a 4): "))
+
     print()
     verified_players = []
 
@@ -52,9 +57,22 @@ def show_players_order():
             else:
                 print("Usuario o contraseña incorrectos. Intente de nuevo, por favor.\n")
 
-        print()
+    players_card_dictionary, playing_order = get_players_order(verified_players)
 
-    get_players_order(verified_players)
+    for i in players_card_dictionary:
+        card: tuple[str, list[str]] = get_reformatted_card(players_card_dictionary[i])
+        print(f"Carta para «{i}»: {card[0]}{card[1][(randint(0, 1))]}")
+
+    print()
+
+    # Falta contemplar el caso en que las cartas retornadas sean iguales
+
+    for i in range(len(playing_order)):
+        print(f"Turno {i + 1}: {playing_order[i][0]}")
+
 
 def run_memory_game():
     return
+
+
+show_players_order()

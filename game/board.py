@@ -14,7 +14,7 @@ def generate_board(x: int, y: int):
 
     return board
 
-def display_board(board: list):
+def display_board(board: list) -> None:
     """Displays the board taking into account dimensional spaces."""
 
     for row in board: print(' '.join(row))
@@ -24,16 +24,16 @@ def set_difficulty(difficulty: int):
         For difficulty: 0 = Easy, 1 = Normal, 2 = Hard."""
 
     match difficulty:
-        case 0:
-            return generate_board(4, 4)
+        case 0: return generate_board(4, 4)
         case 1: return generate_board(8, 4)
         case 2: return generate_board(13, 4)
         case _: print("Invalid difficult selected.")  # Use throw
 
-def fill_board(board: list, difficulty: int):
+def fill_board(board: list, difficulty: int) -> None:
     """Assigns respective keys to each individual element on board list.
         Does not include card 'values' (values = symbolic and numerical cards)."""
-    step = 0
+
+    step: int = 0
 
     match difficulty:
         case 0: n = 8
