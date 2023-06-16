@@ -1,16 +1,16 @@
-from simple_list_selection import ask
+from ..simple_list_selection import ask
 from getpass import getpass
 from user import create_new_user, check_user
-from board import set_difficulty
+from board import set_difficulty, display_board
 from player import get_players_order, players_order
 from card import get_reformatted_card
 from random import randint
 
-def show_welcome():
+def show_welcome() -> None:
     welcome = "This is a welcome"
     print(f"{welcome}\n")
 
-def show_first_menu():
+def show_first_menu() -> None:
     menu_items = ["Registrar jugador", "Establecer turno", "Iniciar juego de memoria", "Salir"]
     choice = ask("Seleccione una de las siguientes opciones:", menu_items)
 
@@ -25,18 +25,18 @@ def show_first_menu():
         case 4:
             return
 
-def show_create_new_user():
+def show_create_new_user() -> None:
     username = input("Usuario: ")
     password = getpass("Contraseña: ")
     create_new_user(username, password)
     show_first_menu()
 
-def show_set_difficulty():
+def show_set_difficulty() -> None:
     menu_items = ["Fácil", "Normal", "Difícil"]
     choice = ask("Seleccione la dificultad:", menu_items)
     set_difficulty(choice)
 
-def show_players_order():
+def show_players_order() -> None:
     number_of_players = 0
 
     while number_of_players > 4 or number_of_players < 2:
@@ -71,12 +71,21 @@ def show_players_order():
         print(f"Turno {i + 1}: {playing_order[i][0]}")
 
 
-def run_memory_game():
+def run_memory_game() -> None:
     if not players_order:
         print("No se ha establecido el orden de los jugadores.")
         print("Por favor, seleccione la opción 2 y establezca el orden de los jugadores antes de iniciar el juego.\n")
         show_first_menu()
-    return
 
+    print("Juego de memoria iniciado.\n")
+    print("¡Buena suerte!\n")
+    display_board(True)
 
-show_first_menu()
+    playing_order = 0
+
+    while True:
+        print(f"Turno de jugador «{players_order[playing_order]}»")
+        playing_order += 1
+        playing_order %= len(players_order)
+        card_1_position = int(input("Ingrese la posición de la primera carta: "))
+        card_2_position = int(input("Ingrese la posición de la segunda carta: "))

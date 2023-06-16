@@ -13,7 +13,9 @@ def get_cards(number_of_different_cards: int) -> list[str]:
 
     for card in hand:
         card = get_reformatted_card(card)
-        list_of_cards.append(f"{card[0]}  {card[1][randint(0, 1)]}")
+        value = card[0]
+        suit = card[1][randint(0, 1)]
+        list_of_cards.append(f"{value}  {suit}" if len(value) == 1 else f"{value} {suit}")
 
     list_of_cards *= 2
     shuffle(list_of_cards * 2)
