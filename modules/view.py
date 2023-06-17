@@ -1,42 +1,38 @@
-from ..simple_list_selection import ask
+from simple_list_selection import ask
 from getpass import getpass
 from user import create_new_user, check_user
-from board import set_difficulty, display_board
 from player import get_players_order, players_order
-from card import get_reformatted_card
 from random import randint
+from board_model import Board
 
-def show_welcome() -> None:
-    welcome = "This is a welcome"
+def run() -> None:
+    _show_welcome()
+
+def _show_welcome() -> None:
+    welcome: str = "This is a welcome"
     print(f"{welcome}\n")
 
-def show_first_menu() -> None:
-    menu_items = ["Registrar jugador", "Establecer turno", "Iniciar juego de memoria", "Salir"]
-    choice = ask("Seleccione una de las siguientes opciones:", menu_items)
+def _show_first_menu() -> None:
+    menu_items: list[str] = ["Registrar jugador", "Establecer turno e iniciar tablero", "Iniciar juego de memoria", "Salir"]
+    choice: int = ask("Seleccione una de las siguientes opciones:", menu_items)
 
     match choice:
-        case 0:
-            show_create_new_user()
-        case 1:
-            show_set_difficulty()
-            show_players_order()
-        case 2:
-            run_memory_game()
-        case 4:
-            return
+        case 0: _show_first_option()
+        case 1: _show_second_option()
+        case 2: _show_third_option()
+        case 4: _exit()
 
-def show_create_new_user() -> None:
+def _show_first_option() -> None:
     username = input("Usuario: ")
     password = getpass("Contraseña: ")
     create_new_user(username, password)
-    show_first_menu()
+    _show_first_menu()
 
-def show_set_difficulty() -> None:
+def _show_second_option() -> None:
     menu_items = ["Fácil", "Normal", "Difícil"]
     choice = ask("Seleccione la dificultad:", menu_items)
-    set_difficulty(choice)
+    board: Board = Board(choice)
 
-def show_players_order() -> None:
     number_of_players = 0
 
     while number_of_players > 4 or number_of_players < 2:
@@ -57,6 +53,8 @@ def show_players_order() -> None:
             else:
                 print("Usuario o contraseña incorrectos. Intente de nuevo, por favor.\n")
 
+
+def show_players_order() -> None:
     players_card_dictionary, playing_order = get_players_order(verified_players)
 
     for i in players_card_dictionary:
@@ -72,20 +70,21 @@ def show_players_order() -> None:
 
 
 def run_memory_game() -> None:
-    if not players_order:
-        print("No se ha establecido el orden de los jugadores.")
-        print("Por favor, seleccione la opción 2 y establezca el orden de los jugadores antes de iniciar el juego.\n")
-        show_first_menu()
+    # if not players_order:
+    #     print("No se ha establecido el orden de los jugadores.")
+    #     print("Por favor, seleccione la opción 2 y establezca el orden de los jugadores antes de iniciar el juego.\n")
+    #     show_first_menu()
+    #
+    # print("Juego de memoria iniciado.\n")
+    # print("¡Buena suerte!\n")
+    # display_board(is_numbered=True)
 
-    print("Juego de memoria iniciado.\n")
-    print("¡Buena suerte!\n")
-    display_board(True)
-
-    playing_order = 0
+    get_players_order(["Jugador 1", "Jugador 2", "Jugador 3", "Jugador 4"])
+    turn = 0
 
     while True:
-        print(f"Turno de jugador «{players_order[playing_order]}»")
-        playing_order += 1
-        playing_order %= len(players_order)
+        print(f"Turno de jugador «{players_order[turn][0]}»")
+        turn += 1
+        turn %= len(players_order)
         card_1_position = int(input("Ingrese la posición de la primera carta: "))
         card_2_position = int(input("Ingrese la posición de la segunda carta: "))

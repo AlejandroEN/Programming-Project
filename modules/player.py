@@ -1,4 +1,4 @@
-from card import get_hand, NUMBER_VALUE, const, get_reformatted_card
+from card import get_hand, _NUMBER_VALUE, const, get_reformatted_card
 from pydealer import Stack
 
 players_order: list[tuple] = []
@@ -13,7 +13,7 @@ def get_players_order(players: list[str]) -> tuple[dict, list[tuple]]:
 
     for i in range(len(players)): players_card_dictionary[players[i]] = hand[i]
 
-    playing_order: list[tuple] = sorted(players_card_dictionary.items(), key=lambda item: int(NUMBER_VALUE[item[1].value] if item[1].value in const.VALUES[9:] else item[1].value), reverse=True)
+    playing_order: list[tuple] = sorted(players_card_dictionary.items(), key=lambda item: int(_NUMBER_VALUE[item[1].value] if item[1].value in const.VALUES[9:] else item[1].value), reverse=True)
 
     for i in playing_order: players_order.append(i)
 

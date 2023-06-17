@@ -1,6 +1,6 @@
 import json
 
-def create_new_user(username: str, password: str):
+def create_new_user(username: str, password: str) -> None:
     """Creates new instance of player request, stores player data as .JSON file."""
 
     new_player = {"username": username, "password": password}
@@ -9,7 +9,7 @@ def create_new_user(username: str, password: str):
     with open(f"../data/{username}.json", "w") as storage:
         storage.write(json_object)
 
-def check_user(username: str, password: str):
+def check_user(username: str, password: str) -> None:
     """Performs rundown data carpet, if player information exists and is correct, allows access to code operations.
         Otherwise, prompts message and ends cycle."""
 
