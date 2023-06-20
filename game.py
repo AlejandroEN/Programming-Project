@@ -1,38 +1,50 @@
-from simple_list_selection import ask
+from packages import user
+from models.board_model import Board
+from packages.simple_list_selection import ask
 from getpass import getpass
-from user import create_new_user, check_user
-from player import get_players_order, players_order
 from random import randint
-from board_model import Board
+from packages.card import get_pairs_of_cards
+
+board: Board = Board()
 
 def run() -> None:
-    _show_welcome()
+    show_welcome()
 
-def _show_welcome() -> None:
+def show_welcome() -> None:
     welcome: str = "This is a welcome"
     print(f"{welcome}\n")
 
-def _show_first_menu() -> None:
-    menu_items: list[str] = ["Registrar jugador", "Establecer turno e iniciar tablero", "Iniciar juego de memoria", "Salir"]
-    choice: int = ask("Seleccione una de las siguientes opciones:", menu_items)
+def show_first_menu() -> None:
+    menu_items: list[str] = ["Registrar jugador", "Establecer turno", "Iniciar juego de memoria", "Salir"]
+    choice:int = ask("Seleccione una de las siguientes opciones:", menu_items)
 
     match choice:
-        case 0: _show_first_option()
-        case 1: _show_second_option()
-        case 2: _show_third_option()
-        case 4: _exit()
+        case 0: create_new_user()
+        case 1: set_difficulty()
+        case 2: run_memory_game()
+        case 4: exit()
 
-def _show_first_option() -> None:
-    username = input("Usuario: ")
-    password = getpass("Contraseña: ")
-    create_new_user(username, password)
-    _show_first_menu()
+def create_new_user() -> None:
+    username: str = input("Usuario: ")
+    password: str = getpass("Contraseña: ")
+    user.create_new_user(username, password)
+    show_first_menu()
 
-def _show_second_option() -> None:
-    menu_items = ["Fácil", "Normal", "Difícil"]
-    choice = ask("Seleccione la dificultad:", menu_items)
-    board: Board = Board(choice)
+def set_difficulty() -> None:
+    menu_items: list[str] = ["Fácil", "Normal", "Difícil"]
+    board.difficulty = ask("Seleccione la dificultad:", menu_items)
+    pairs_of_cards: int = 0
 
+    match board.difficulty:
+        case 0: pairs_of_cards = 8
+        case 1: pairs_of_cards = 16
+        case 2: pairs_of_cards = 26
+
+    board.fill(get_pairs_of_cards(pairs_of_cards))
+    set_players_order()
+
+
+def set_players_order() -> None:
     number_of_players = 0
 
     while number_of_players > 4 or number_of_players < 2:
@@ -53,8 +65,6 @@ def _show_second_option() -> None:
             else:
                 print("Usuario o contraseña incorrectos. Intente de nuevo, por favor.\n")
 
-
-def show_players_order() -> None:
     players_card_dictionary, playing_order = get_players_order(verified_players)
 
     for i in players_card_dictionary:
@@ -88,3 +98,7 @@ def run_memory_game() -> None:
         turn %= len(players_order)
         card_1_position = int(input("Ingrese la posición de la primera carta: "))
         card_2_position = int(input("Ingrese la posición de la segunda carta: "))
+
+
+set_difficulty(1)
+run_memory_game()
