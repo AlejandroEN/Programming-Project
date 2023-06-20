@@ -1,9 +1,8 @@
 class Player:
-    def __init__(self, name, score) -> None:
-        self.name: str = name
-        self.score: int = score
-        self.order: int = 0
+    def __init__(self, username) -> None:
+        self._username: str = username
+        self._score: int = -1
 
     @property
-    def playin_order(self) -> int:
-        return self.order
+    def username(self) -> str:
+        return self._username
