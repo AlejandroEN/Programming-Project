@@ -15,6 +15,17 @@ class Board:
         self._difficulty = value
         self._generate(value)
 
+    def fill(self, pairs_of_cards: list[Card]) -> None:
+        step: int = 0
+
+        for row in self._board:
+            for column in range(len(row)):
+                row[column] = f"[ {pairs_of_cards[step]} ]"
+                step += 1
+
+    def display(self) -> None:
+        for row in self._board: print('    '.join([card.value for card in row]))
+
     def _generate(self, difficulty: int) -> None:
         x: int = 0
 
@@ -24,11 +35,3 @@ class Board:
             case 2: x = 13
 
         for i in range(0, 4): self._board.append([] * x)
-
-    def fill(self, pairs_of_cards: list[Card]) -> None:
-        step: int = 0
-
-        for row in self._board:
-            for column in range(len(row)):
-                row[column] = f"[ {pairs_of_cards[step]} ]"
-                step += 1

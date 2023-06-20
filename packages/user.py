@@ -1,6 +1,9 @@
 import json
 
-def create_new_user(username: str, password: str) -> None:  # ToDo: return confirmation or error message to show in console
+def create_new_user(username: str, password: str) -> None:
+    # ToDo: return confirmation or error message to show in console
+    # ToDo: check if user already exists
+    # ToDo: encrypt password
     """
     Creates new instance of player request, stores player data as .JSON file.
     """

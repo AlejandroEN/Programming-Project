@@ -74,7 +74,13 @@ def set_players_order() -> None:
         print(f"Jugador {i + 1}: {players[i].username}")  # Todo: Falta contemplar el caso en que las cartas retornadas sean iguales
 
 def start() -> None:
-    pass
+    if not players:
+        print("No se ha establecido el orden de los jugadores.")
+        print("Por favor, seleccione la opción 2 y establezca el orden de los jugadores antes de iniciar el juego.\n")
+        show_first_menu()
+
+    print("Juego de memoria iniciado.\n")
+    print("¡Buena suerte!\n")
 
 
 if __name__ == "__main__":
