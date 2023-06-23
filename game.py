@@ -70,8 +70,10 @@ def set_players_order() -> None:
 
     print()
 
-    for i in range(len(players)):
-        print(f"Jugador {i + 1}: {players[i].username}")  # Todo: Falta contemplar el caso en que las cartas retornadas sean iguales
+    for i in range(len(players)): print(f"Turno {i + 1}: {players[i].username}")  # Todo: Falta contemplar el caso en que las cartas retornadas sean iguales
+    print()
+
+    show_first_menu()
 
 def start() -> None:
     if not players:
@@ -85,13 +87,24 @@ def start() -> None:
 
     while sum([player.score for player in players]) < len(board.cards) / 2:
         player = players[player_index_turn]
-        print(f"Turno de «{player.username}»:")
+        board.display()
+        print(f"\nTurno de «{player.username}»:")
         card_1_position: int = int(input("Ingrese la posición de la primera carta: "))
         card_2_position: int = int(input("Ingrese la posición de la segunda carta: "))
+        # ToDo: Check card's values before comparing them (must be between 0 and len(board.cards) - 1)
+        # ToDo: if Card position is invalid, ask for a new one.
+        # ToDo: If user enters the same position for both cards, ask again for the second card's position
         print()
+        board.cards[card_1_position].is_visible = board.cards[card_2_position].is_visible = True
         board.display()
         print([f"{player.username}: {player.score} | " for player in players])
 
+        if board.cards[card_1_position] == board.cards[card_2_position]:
+            player.score += 1
+            print("¡Cartas iguales! Ganaste un punto y tienes un turno adicional.\n")
+        else:
+            print("¡Cartas diferentes! No ganaste ningún punto y tu turno ha finalizado.\n")
+            player_index_turn += 1 if player_index_turn < len(players) - 1 else 0
 
 
 if __name__ == "__main__":

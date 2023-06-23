@@ -35,7 +35,7 @@ class Board:
             displayed_values: list[str] = []
 
             for card in row:
-                if not card.is_matched:
+                if not card.is_visible:
                     displayed_values.append(f"[  {card.hidden_value} ]" if len(str(card.hidden_value)) == 1 else f"[ {card.hidden_value} ]")
                 else:
                     displayed_values.append(f"{card.value} {card.suit} " if len(card.value) == 1 else f"{card.value} {card.suit}")

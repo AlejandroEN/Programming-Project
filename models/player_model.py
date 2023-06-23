@@ -8,3 +8,6 @@ class Player:
 
     @property
     def score(self) -> int: return self._score
+
+    @score.setter
+    def score(self, value: int) -> None: self._score = value
