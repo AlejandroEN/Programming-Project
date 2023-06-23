@@ -11,8 +11,7 @@ def create_new_user(username: str, password: str) -> None:
     new_player = {"username": username, "password": password}
     json_object = json.dumps(new_player, indent=4)
 
-    with open(f"data/{username}.json", "w") as storage:
-        storage.write(json_object)
+    with open(f"data/{username}.json", "w") as storage: storage.write(json_object)
 
 def check_user(username: str, password: str) -> bool:
     """

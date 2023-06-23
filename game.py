@@ -81,6 +81,17 @@ def start() -> None:
 
     print("Juego de memoria iniciado.\n")
     print("¡Buena suerte!\n")
+    player_index_turn: int = 0
+
+    while sum([player.score for player in players]) < len(board.cards) / 2:
+        player = players[player_index_turn]
+        print(f"Turno de «{player.username}»:")
+        card_1_position: int = int(input("Ingrese la posición de la primera carta: "))
+        card_2_position: int = int(input("Ingrese la posición de la segunda carta: "))
+        print()
+        board.display()
+        print([f"{player.username}: {player.score} | " for player in players])
+
 
 
 if __name__ == "__main__":
