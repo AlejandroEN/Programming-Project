@@ -1,4 +1,4 @@
-from card_model import Card
+from .card_model import Card
 
 class Board:
     def __init__(self) -> None:
@@ -14,13 +14,14 @@ class Board:
     def difficulty(self) -> int: return self._difficulty
 
     @difficulty.setter
-    def difficulty(self, value) -> None:
+    def difficulty(self, value: int) -> None:
         self._difficulty = value
 
         match self._difficulty - 1:
             case 0: self._cards_per_row = 4
             case 1: self._cards_per_row = 8
             case 2: self._cards_per_row = 13
+            case _: pass
 
     def fill(self, pairs_of_cards: list[Card]) -> None:
         self._cards = pairs_of_cards

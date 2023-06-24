@@ -1,36 +1,39 @@
 from packages import user
-from simple_list_selection import ask
+from packages.simple_list_selection import ask
 from getpass import getpass
-from card import get_pairs_of_cards, get_players_order
-from board_model import Board
-from player_model import Player
-
-board: Board = Board()
-players: list[Player] = []
+from packages.card import get_pairs_of_cards, get_players_order
+from packages.models.board_model import Board
+from packages.models.player_model import Player
 
 def run() -> None:
     welcome: str = "This is a welcome"
     print(f"{welcome}\n")
-    show_first_menu()
+    show_menu([], Board())
 
-def show_first_menu() -> None:
+def show_menu(players: list[Player], board: Board) -> None:
     menu_items: list[str] = ["Registrar jugador", "Establecer dificultad y turnos", "Iniciar juego de memoria", "Salir"]
     choice: int = ask("Seleccione una de las siguientes opciones:", menu_items)
 
     match choice:
-        case 0: create_new_user()
-        case 1: set_difficulty()
-        case 2: start()
-        case 4: exit()
+        case 0:
+            create_new_user()
+            show_menu(players, board)
+        case 1:
+            show_menu(set_players_order(), set_difficulty())
+        case 2:
+            start(players, board)
+        case 4:
+            exit()
+        case _: pass
 
 def create_new_user() -> None:
     username: str = input("Usuario: ")
     password: str = getpass("Contraseña: ")
     user.create_new_user(username, password)
-    show_first_menu()
 
-def set_difficulty() -> None:
+def set_difficulty() -> Board:
     menu_items: list[str] = ["Fácil", "Normal", "Difícil"]
+    board = Board()
     board.difficulty = ask("Seleccione la dificultad:", menu_items)
     pairs_of_cards: int = 0
 
@@ -38,13 +41,12 @@ def set_difficulty() -> None:
         case 0: pairs_of_cards = 8
         case 1: pairs_of_cards = 16
         case 2: pairs_of_cards = 26
+        case _: pass
 
     board.fill(get_pairs_of_cards(pairs_of_cards))
-    set_players_order()
+    return board
 
-def set_players_order() -> None:
-    global players
-
+def set_players_order() -> list[Player]:
     number_of_players: int = 0
     while number_of_players > 4 or number_of_players < 2: number_of_players = int(input("Ingreses la cantidad de jugadores (2 a 4): "))
     print()
@@ -73,13 +75,13 @@ def set_players_order() -> None:
     for i in range(len(players)): print(f"Turno {i + 1}: {players[i].username}")  # Todo: Falta contemplar el caso en que las cartas retornadas sean iguales
     print()
 
-    show_first_menu()
+    return players
 
-def start() -> None:
+def start(players: list[Player], board: Board) -> None:
     if not players:
         print("No se ha establecido el orden de los jugadores.")
         print("Por favor, seleccione la opción 2 y establezca el orden de los jugadores antes de iniciar el juego.\n")
-        show_first_menu()
+        show_menu(players, board)
 
     print("Juego de memoria iniciado.\n")
     print("¡Buena suerte!\n")
@@ -87,22 +89,29 @@ def start() -> None:
 
     while sum([player.score for player in players]) < len(board.cards) / 2:
         player = players[player_index_turn]
+
+        print(f"Turno de «{player.username}»:\n")
         board.display()
-        print(f"\nTurno de «{player.username}»:")
-        card_1_position: int = int(input("Ingrese la posición de la primera carta: "))
-        card_2_position: int = int(input("Ingrese la posición de la segunda carta: "))
+        print(' | '.join([f"{player.username}: {player.score}" for player in players]))
+
+        card_1_position: int = int(input("\nIngrese la posición de la primera carta: ")) - 1
+        card_2_position: int = int(input("Ingrese la posición de la segunda carta: ")) - 1
+        print()
+
+        card_1 = board.cards[card_1_position]
+        card_2 = board.cards[card_2_position]
         # ToDo: Check card's values before comparing them (must be between 0 and len(board.cards) - 1)
         # ToDo: if Card position is invalid, ask for a new one.
         # ToDo: If user enters the same position for both cards, ask again for the second card's position
-        print()
+
         board.cards[card_1_position].is_visible = board.cards[card_2_position].is_visible = True
         board.display()
-        print([f"{player.username}: {player.score} | " for player in players])
 
-        if board.cards[card_1_position] == board.cards[card_2_position]:
+        if f"{card_1.value} {card_2.suit}" == f"{card_2.value} {card_2.suit}":
             player.score += 1
             print("¡Cartas iguales! Ganaste un punto y tienes un turno adicional.\n")
         else:
+            board.cards[card_1_position].is_visible = board.cards[card_2_position].is_visible = False
             print("¡Cartas diferentes! No ganaste ningún punto y tu turno ha finalizado.\n")
             player_index_turn += 1 if player_index_turn < len(players) - 1 else 0
 

@@ -1,5 +1,5 @@
-from card_model import Card
-from player_model import Player
+from .models.card_model import Card
+from .models.player_model import Player
 from pydealer import Deck, const, Stack, Card as PyDealerCard
 from random import shuffle, randint
 
@@ -12,14 +12,11 @@ def get_pairs_of_cards(number_of_different_cards: int) -> list[Card]:
     hand: Stack = _get_hand(number_of_different_cards)
     list_of_cards: list[Card] = []
 
-    for i in range(2):
-        for py_dealer_card in hand:
-            formatted_card: tuple[str, list[str]] = _get_reformatted_card(py_dealer_card)
-            value: str = formatted_card[0]
-            suit: str = formatted_card[1][randint(0, 1)]
-
-            card = Card(value, suit)
-            list_of_cards.append(card)
+    for py_dealer_card in hand:
+        formatted_card: tuple[str, list[str]] = _get_reformatted_card(py_dealer_card)
+        value: str = formatted_card[0]
+        suit: str = formatted_card[1][randint(0, 1)]
+        for _ in range(2): list_of_cards.append(Card(value, suit))
 
     shuffle(list_of_cards)
     for i in range(len(list_of_cards)): list_of_cards[i].hidden_value = i + 1
