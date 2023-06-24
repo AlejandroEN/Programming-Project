@@ -1,6 +1,4 @@
 def ask(title: str, options: list[str]) -> int:
-    """Sets question to user, returns choice as fixed order value."""
-
     print(f"{title}\n")
     for i in range(len(options)): print(f"{i + 1}. {options[i]}")
     print()
