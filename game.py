@@ -6,11 +6,17 @@ from packages.models.board_model import Board
 from packages.models.player_model import Player
 
 def run() -> None:
+    """
+    Runs the game.
+    """
     with open("res/welcome.txt") as file: welcome: str = file.read()
     print(f"\n{welcome}\n")
     show_menu([], Board())
 
 def show_menu(players: list[Player], board: Board) -> None:
+    """
+    Shows the main menu.
+    """
     menu_items: list[str] = ["Registrar jugador",
                              "Establecer dificultad y turnos",
                              "Iniciar juego de memoria",
@@ -33,11 +39,17 @@ def show_menu(players: list[Player], board: Board) -> None:
             pass
 
 def create_new_user() -> None:
+    """
+    Creates a new user.
+    """
     username: str = input("Usuario: ")
     password: str = getpass("Contraseña: ")
     print(user.create_new_user(username, password))
 
 def set_difficulty() -> Board:
+    """
+    Sets the difficulty of the game.
+    """
     menu_items: list[str] = ["Fácil", "Normal", "Difícil"]
     board = Board()
     board.difficulty = ask("Seleccione la dificultad:", menu_items)
@@ -53,6 +65,9 @@ def set_difficulty() -> Board:
     return board
 
 def set_players_order() -> list[Player]:
+    """
+    Sets the order of the players.
+    """
     number_of_players: int = 0
     while number_of_players > 4 or number_of_players < 2: number_of_players = int(input("Ingreses la cantidad de jugadores (2 a 4): "))
     print()
@@ -82,10 +97,12 @@ def set_players_order() -> list[Player]:
     for i in range(len(players)): print(f"Turno {i + 1}: {players[i].username}")
     # Todo: Falta contemplar el caso en que las cartas retornadas sean iguales
     print()
-
     return players
 
 def start(players: list[Player], board: Board) -> None:
+    """
+    Starts the game.
+    """
     if not players:
         print("No se ha establecido el orden de los jugadores.")
         print("Por favor, seleccione la opción 2 y establezca el orden de los jugadores antes de iniciar el juego.\n")
