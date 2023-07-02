@@ -24,12 +24,13 @@ def show_menu(players: list[Player], board: Board) -> None:
             start(players, board)
         case 4:
             exit()
-        case _: pass
+        case _:
+            pass
 
 def create_new_user() -> None:
     username: str = input("Usuario: ")
     password: str = getpass("Contraseña: ")
-    user.create_new_user(username, password)
+    print(user.create_new_user(username, password))
 
 def set_difficulty() -> Board:
     menu_items: list[str] = ["Fácil", "Normal", "Difícil"]
