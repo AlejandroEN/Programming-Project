@@ -16,8 +16,8 @@ def show_menu(players: list[Player], board: Board) -> None:
                              "Establecer dificultad y turnos",
                              "Iniciar juego de memoria",
                              "Guardar jugadores",
-                             "Cargar jugadores",
                              "Salir"]
+
     choice: int = ask("Seleccione una de las siguientes opciones:", menu_items)
 
     match choice:
@@ -64,6 +64,7 @@ def set_players_order() -> list[Player]:
             print(f"Jugador {i + 1}:")
             username: str = input("Ingrese su usuario: ")
             password: str = getpass("Ingrese su contraseña: ")
+            print()
 
             if user.check_user(username, password):
                 verified_players.append(Player(username))
