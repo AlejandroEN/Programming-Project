@@ -121,13 +121,16 @@ def start(players: list[Player], board: Board) -> None:
 
         card_1_position: int = int(input("\nIngrese la posición de la primera carta: ")) - 1
         card_2_position: int = int(input("Ingrese la posición de la segunda carta: ")) - 1
+
+        while card_2_position == card_1_position:
+            card_2_position: int = int(input("Ingrese la posición de la segunda carta: ")) - 1
+
         print()
 
         card_1 = board.cards[card_1_position]
         card_2 = board.cards[card_2_position]
         # ToDo: Check card's values before comparing them (must be between 0 and len(board.cards) - 1)
         # ToDo: if Card position is invalid, ask for a new one.
-        # ToDo: If user enters the same position for both cards, ask again for the second card's position
 
         board.cards[card_1_position].is_visible = board.cards[card_2_position].is_visible = True
         board.display()
