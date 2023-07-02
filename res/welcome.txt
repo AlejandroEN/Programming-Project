@@ -1,0 +1,20 @@
+ _____________________________________________________
+|                                                     |
+|          BIENVENIDO AL JUEGO DE MEMORIA             |
+|                                                     |
+|      _________  _________  _________  _________     |
+|     |         ||         ||         ||         |    |
+|     |    🂠    ||    🂠    ||    🂠    ||    🂠    |    |
+|     |         ||         ||         ||         |    |
+|     |_________||_________||_________||_________|    |
+|                                                     |
+|    ¡Prepárate para poner a prueba tus habilidades   |
+|    de memoria en este emocionante juego de cartas!  |
+|    Voltea las cartas, encuentra las parejas y       |
+|    agudiza tu concentración. ¿Podrás descubrir      |
+|    todas las cartas?                                |
+|                                                     |
+|                  ¿Estás listo?                      |
+|             ¡Que comience el juego!                 |
+|                                                     |
+|_____________________________________________________|

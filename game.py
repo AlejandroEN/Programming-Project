@@ -6,8 +6,7 @@ from packages.models.board_model import Board
 from packages.models.player_model import Player
 
 def run() -> None:
-    # ToDo: Change welcome message
-    welcome: str = "This is a welcome"
+    with open("res/welcome.txt") as file: welcome: str = file.read()
     print(f"\n{welcome}\n")
     show_menu([], Board())
 
@@ -80,7 +79,8 @@ def set_players_order() -> list[Player]:
 
     print()
 
-    for i in range(len(players)): print(f"Turno {i + 1}: {players[i].username}")  # Todo: Falta contemplar el caso en que las cartas retornadas sean iguales
+    for i in range(len(players)): print(f"Turno {i + 1}: {players[i].username}")
+    # Todo: Falta contemplar el caso en que las cartas retornadas sean iguales
     print()
 
     return players
