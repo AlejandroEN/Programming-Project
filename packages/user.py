@@ -3,9 +3,6 @@ from os.path import exists
 from string import ascii_letters
 
 def create_new_user(username: str, password: str) -> str:
-    # ToDo: return confirmation or error message to show in console
-    # ToDo: encrypt password
-
     """
     Creates new instance of player request, stores player data as .JSON file.
     """
