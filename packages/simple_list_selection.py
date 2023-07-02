@@ -9,11 +9,10 @@ def ask(title: str, options: list[str]) -> int:
     while True:
         try:
             answer: int = int(input("Ingrese la opción deseada: "))
-            print()
-
             if 1 <= answer <= len(options): break
             else: raise ValueError
         except ValueError:
             print("Elija un valor dentro del rango de opciones, por favor.\n")
 
+    print()
     return answer - 1
