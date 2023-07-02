@@ -14,7 +14,6 @@ def get_pairs_of_cards(number_of_different_cards: int) -> list[Card]:
     Defines a set number of cards to generate, appends them on list and shuffles said list.
     Each card is assigned both their respective values and hidden values.
     """
-
     hand: Stack = _get_hand(number_of_different_cards)
     list_of_cards: list[Card] = []
 

@@ -1,20 +1,37 @@
 from .card_model import Card
 
 class Board:
+    """
+    Represents a board.
+    """
     def __init__(self) -> None:
+        """
+        Initializes a new instance of the Board class.
+        """
         self._difficulty: int = 0
         self._cards: list[Card] = []
         self._board: list[list[Card]] = [[] for _ in range(4)]
         self._cards_per_row: int = 0
 
     @property
-    def cards(self) -> list[Card]: return self._cards
+    def cards(self) -> list[Card]:
+        """
+        Gets the cards of the board.
+        """
+        return self._cards
 
     @property
-    def difficulty(self) -> int: return self._difficulty
+    def difficulty(self) -> int:
+        """
+        Gets the difficulty of the board.
+        """
+        return self._difficulty
 
     @difficulty.setter
     def difficulty(self, value: int) -> None:
+        """
+        Sets the difficulty of the board.
+        """
         self._difficulty = value
 
         match self._difficulty:
@@ -24,6 +41,9 @@ class Board:
             case _: pass
 
     def fill(self, pairs_of_cards: list[Card]) -> None:
+        """
+        Fills the board with pairs of cards.
+        """
         self._cards = pairs_of_cards
         step: int = 0
 
@@ -32,6 +52,9 @@ class Board:
             step += self._cards_per_row
 
     def display(self) -> None:
+        """
+        Displays the board.
+        """
         for row in self._board:
             displayed_values: list[str] = []
 
