@@ -17,7 +17,7 @@ class Board:
     def difficulty(self, value: int) -> None:
         self._difficulty = value
 
-        match self._difficulty - 1:
+        match self._difficulty:
             case 0: self._cards_per_row = 4
             case 1: self._cards_per_row = 8
             case 2: self._cards_per_row = 13
