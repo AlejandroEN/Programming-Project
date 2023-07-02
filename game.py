@@ -6,12 +6,18 @@ from packages.models.board_model import Board
 from packages.models.player_model import Player
 
 def run() -> None:
+    # ToDo: Change welcome message
     welcome: str = "This is a welcome"
-    print(f"{welcome}\n")
+    print(f"\n{welcome}\n")
     show_menu([], Board())
 
 def show_menu(players: list[Player], board: Board) -> None:
-    menu_items: list[str] = ["Registrar jugador", "Establecer dificultad y turnos", "Iniciar juego de memoria", "Salir"]
+    menu_items: list[str] = ["Registrar jugador",
+                             "Establecer dificultad y turnos",
+                             "Iniciar juego de memoria",
+                             "Guardar jugadores",
+                             "Cargar jugadores",
+                             "Salir"]
     choice: int = ask("Seleccione una de las siguientes opciones:", menu_items)
 
     match choice:
