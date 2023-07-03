@@ -1,9 +1,12 @@
 from game import *
 
-players: list[Player] = [Player("a"), Player("b"), Player("c"), Player("d")]
+# players: list[Player] = [Player("a"), Player("b"), Player("c"), Player("d")]
 
-board = Board()
-board.difficulty = 3
-board.fill(get_pairs_of_cards(26))
+# board = Board()
+# board.difficulty = 2
+# board.fill(get_pairs_of_cards(26))
+#
+# start(players, board)
 
-start(players, board)
+
+set_players_order()

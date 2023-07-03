@@ -70,7 +70,10 @@ def set_players_order() -> list[Player]:
     Sets the order of the players.
     """
     number_of_players: int = 0
-    while number_of_players > 4 or number_of_players < 2: number_of_players = int(input("Ingreses la cantidad de jugadores (2 a 4): "))
+
+    while number_of_players > 4 or number_of_players < 2:
+        number_of_players = int(input("Ingreses la cantidad de jugadores (2 a 4): "))
+
     print()
     verified_players: list[Player] = []
 
@@ -97,17 +100,6 @@ def set_players_order() -> list[Player]:
 
     for i in range(len(players)): print(f"Turno {i + 1}: {players[i].username}")
 
-    # Todo: Falta contemplar el caso en que las cartas retornadas sean iguales
-    # PLEASE PERFORM TESTS FOR VERIFICATION
-    # Check if multiple players have the same card
-    if len(set(card_per_player.values())) != len(card_per_player):
-        while True:
-            shuffled_players = players[:]
-            shuffle(shuffled_players)
-            if shuffled_players != players:
-                players = shuffled_players
-                break
-
     print()
     return players
 
@@ -131,18 +123,19 @@ def start(players: list[Player], board: Board) -> None:
         board.display()
         print(' | '.join([f"{player.username}: {player.score}" for player in players]))
 
-        card_1_position: int = int(input("\nIngrese la posición de la primera carta: ")) - 1
-        card_2_position: int = int(input("Ingrese la posición de la segunda carta: ")) - 1
+        card_1_position: int = -1
+        card_2_position: int = -1
 
-        while card_2_position == card_1_position:
+        while card_1_position > len(board.cards) - 1 or card_1_position < 0:
+            card_1_position: int = int(input("Ingrese la posición de la primera carta: ")) - 1
+
+        while card_2_position > len(board.cards) - 1 or card_2_position < 0 or card_2_position == card_1_position:
             card_2_position: int = int(input("Ingrese la posición de la segunda carta: ")) - 1
 
         print()
 
         card_1 = board.cards[card_1_position]
         card_2 = board.cards[card_2_position]
-        # ToDo: Check card's values before comparing them (must be between 0 and len(board.cards) - 1)
-        # ToDo: if Card position is invalid, ask for a new one.
 
         board.cards[card_1_position].is_visible = board.cards[card_2_position].is_visible = True
         board.display()
