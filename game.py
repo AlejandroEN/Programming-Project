@@ -4,7 +4,8 @@ from getpass import getpass
 from packages.card import get_pairs_of_cards, get_players_order
 from packages.models.board_model import Board
 from packages.models.player_model import Player
-from random import shuffle
+from os import system
+from time import sleep
 
 def run() -> None:
     """
@@ -99,7 +100,7 @@ def set_players_order() -> list[Player]:
     print()
 
     for i in range(len(players)): print(f"Turno {i + 1}: {players[i].username}")
-
+    # Todo: Falta contemplar el caso en que las cartas retornadas sean iguales
     print()
     return players
 
@@ -144,10 +145,14 @@ def start(players: list[Player], board: Board) -> None:
         if card_1.value == card_2.value and card_1.suit == card_2.suit:
             player.score += 1
             print("\n¡Cartas iguales! Ganaste un punto y tienes un turno adicional.\n")
+            sleep(3)
+            system('cls')
         else:
             board.cards[card_1_position].is_visible = board.cards[card_2_position].is_visible = False
             print("\n¡Cartas diferentes! No ganaste ningún punto y tu turno ha finalizado.\n")
             player_index_turn = (player_index_turn + 1) % len(players)
+            sleep(3)
+            system('cls')
 
 
 if __name__ == "__main__":
