@@ -122,6 +122,7 @@ def start(players: list[Player], board: Board) -> None:
         print(f"Turno de «{player.username}»:\n")
         board.display()
         print(' | '.join([f"{player.username}: {player.score}" for player in players]))
+        print()
 
         card_1_position: int = -1
         card_2_position: int = -1
@@ -140,13 +141,13 @@ def start(players: list[Player], board: Board) -> None:
         board.cards[card_1_position].is_visible = board.cards[card_2_position].is_visible = True
         board.display()
 
-        if f"{card_1.value} {card_2.suit}" == f"{card_2.value} {card_2.suit}":
+        if card_1.value == card_2.value and card_1.suit == card_2.suit:
             player.score += 1
-            print("¡Cartas iguales! Ganaste un punto y tienes un turno adicional.\n")
+            print("\n¡Cartas iguales! Ganaste un punto y tienes un turno adicional.\n")
         else:
             board.cards[card_1_position].is_visible = board.cards[card_2_position].is_visible = False
-            print("¡Cartas diferentes! No ganaste ningún punto y tu turno ha finalizado.\n")
-            player_index_turn += 1 if player_index_turn < len(players) - 1 else 0
+            print("\n¡Cartas diferentes! No ganaste ningún punto y tu turno ha finalizado.\n")
+            player_index_turn = (player_index_turn + 1) % len(players)
 
 
 if __name__ == "__main__":
