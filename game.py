@@ -4,6 +4,7 @@ from getpass import getpass
 from packages.card import get_pairs_of_cards, get_players_order
 from packages.models.board_model import Board
 from packages.models.player_model import Player
+from random import shuffle
 
 def run() -> None:
     """
@@ -95,7 +96,18 @@ def set_players_order() -> list[Player]:
     print()
 
     for i in range(len(players)): print(f"Turno {i + 1}: {players[i].username}")
+
     # Todo: Falta contemplar el caso en que las cartas retornadas sean iguales
+    # PLEASE PERFORM TESTS FOR VERIFICATION
+    # Check if multiple players have the same card
+    if len(set(card_per_player.values())) != len(card_per_player):
+        while True:
+            shuffled_players = players[:]
+            shuffle(shuffled_players)
+            if shuffled_players != players:
+                players = shuffled_players
+                break
+
     print()
     return players
 
