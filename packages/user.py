@@ -1,6 +1,7 @@
 import json
 from os.path import exists
 from string import ascii_letters
+from config import program_path
 
 def create_new_user(username: str, password: str) -> str:
     """
@@ -9,10 +10,10 @@ def create_new_user(username: str, password: str) -> str:
     new_player: dict[str, str] = {"username": username, "password": _encrypt_password(password)}
     json_object: str = json.dumps(new_player, indent=4)
 
-    if exists(f"data/{username}.json"):
+    if exists(f"{program_path}/data/{username}.json"):
         return "\nEl usuario ingresado ya existe.\n"
     else:
-        with open(f"data/{username}.json", "w") as storage: storage.write(json_object)
+        with open(f"{program_path}/data/{username}.json", "w") as storage: storage.write(json_object)
         return "\nUsuario creado exitosamente.\n"
 
 def check_user(username: str, password: str) -> bool:
@@ -21,7 +22,7 @@ def check_user(username: str, password: str) -> bool:
     Otherwise, prompts message and ends cycle.
     """
     try:
-        with open(f"data/{username}.json", "r") as storage:
+        with open(f"{program_path}/data/{username}.json", "r") as storage:
             data = json.load(storage)
             return _decrypt_password(data["password"]) == password
     except FileNotFoundError:
