@@ -6,12 +6,13 @@ from packages.models.board_model import Board
 from packages.models.player_model import Player
 from os import system
 from time import sleep
+from config import program_path
 
 def run() -> None:
     """
     Runs the game.
     """
-    with open("res/welcome.txt") as file: welcome: str = file.read()
+    with open(f"{program_path}/res/welcome.txt", "r") as file: welcome: str = file.read()
     print(f"\n{welcome}\n")
     show_menu([], Board())
 
@@ -19,11 +20,13 @@ def show_menu(players: list[Player], board: Board) -> None:
     """
     Shows the main menu.
     """
-    menu_items: list[str] = ["Registrar jugador",
-                             "Establecer dificultad y turnos",
-                             "Iniciar juego de memoria",
-                             "Guardar jugadores",
-                             "Salir"]
+    menu_items: list[str] = [
+        "Registrar jugador",
+        "Establecer dificultad y turnos",
+        "Iniciar juego de memoria",
+        "Guardar jugadores",
+        "Salir"
+    ]
 
     choice: int = ask("Seleccione una de las siguientes opciones:", menu_items)
 
